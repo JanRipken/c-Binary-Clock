@@ -1,3 +1,9 @@
+#include <stdio.h>
+#include <string.h>
+#include <stdlib.h>
+#include <time.h>
+#include <asm/types.h>
+#include "sensehat.h"
 
 
 typedef struct 
@@ -44,42 +50,3 @@ int main(void){
         display_binary(jetzt.tm_year, 0 , year_color);
         }
 }
-
-
-#include <stdio.h>
-#include <time.h>
-
-
-
-
-
-int diff = 0;
-
-void show(int unit, char end);
-
-main() {
-    struct tm Jetzt;
-    time_t start = time(0), now = time(0);
-
-    while (1) {
-        diff = (now - start);
-        display_binary(Jetzt.tm_sec, ' ');
-        display_binary(Jetzt.tm_min, ' ');
-        display_binary(Jetzt.tm_hour, ' ');
-        display_binary(Jetzt.tm_mday , ' ');
-        display_binary(Jetzt.tm_year, '\n ');
-        now = time(0);
-    }
-}
-
-void display_binary(int unit, char end) {
-    int i, secs = (diff/unit) % 60;
-    for (i = 6; i >= 0; --i) {
-        if (secs & (1 << i))
-            putchar('+');
-        else
-            putchar('-');
-    }
-    putchar(end);
-}
-
